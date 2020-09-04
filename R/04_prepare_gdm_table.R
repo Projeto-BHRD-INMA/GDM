@@ -6,7 +6,7 @@ bio <- read.delim("GDM/Data/Biotic/gbif_download.csv")
 bacia <- readOGR("GDM/Data/Abiotic/munic_BHRD.shp")
 bacia <- spTransform(bacia, CRS("+proj=longlat +datum=WGS84"))
 
-wc <-stack("GDM/Data/Abiotic/wc_vif.tif")
+wc <-stack("GDM/Data/Abiotic/wc_vif.grd")
 plot(wc[[2]])
 
 bio<-bio[,c("decimalLongitude","decimalLatitude", "species")]
