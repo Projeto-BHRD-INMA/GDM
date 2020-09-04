@@ -39,7 +39,12 @@ dev.off()
 
 envRast<-wc
 rastTrans <- gdm.transform(gdm.1, envRast)
-plot(rastTrans)
+
+png(filename="GDM/Results/env_variables.png")
+plot(rastTrans, plot.layout=c(3,3))
+dev.off()
+
+
 rastDat <- na.omit(getValues(rastTrans))
 #rastDat <- sampleRandom(rastTrans, 50000) # can use if rasters are large
 pcaSamp <- prcomp(rastDat)
@@ -93,7 +98,7 @@ write.table(modTest[[3]], "GDM/Results/modTest_GDM_3.csv", row.names=T,
 
 
 par(mfrow=c(1,1))
-png(filename="GDM/Results/barplot.png")
+png(filename="GDM/Results/variable_importance.png")
 barplot(sort(modTest[[2]][,1], decreasing=T))
 dev.off()
 
