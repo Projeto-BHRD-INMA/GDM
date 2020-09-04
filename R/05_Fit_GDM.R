@@ -3,7 +3,7 @@ pacman::p_load(gdm, raster, maptools, rgdal, psych, plyr, devtools)
 
 
 newdata<-read.csv2("GDM/Data/Biotic/species.csv", h=T, sep= ";", dec=",")
-wc <-stack("GDM/Data/Abiotic/wc_vif.tif")
+wc <-stack("GDM/Data/Abiotic/wc_vif.grd")
 
 newdata-> gdmExpData
 envTab <- gdmExpData[, c(5:ncol(gdmExpData))]
