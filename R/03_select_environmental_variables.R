@@ -72,6 +72,6 @@ wc <- grep("wc_bio", tif, value = T)
 setwd("GDM/Data/Abiotic/")
 wc <-stack(wc)
 plot(wc[[2]])
-writeRaster(wc,"wc_vif", format = "GTiff", overwrite=TRUE)
+writeRaster(wc,"wc_vif.grd", format = "raster", overwrite=TRUE)
 setwd("../../../")
 
