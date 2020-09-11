@@ -9,6 +9,7 @@ setwd("./Data/Abiotic/")#tem q estar dentro da pasta abiotic
 
 var_env <-stack(pres)
 plot(var_env[[1]])
+setwd("../../..") #volta diretorio
 setwd("./GDM") #volta diretorio
 getwd()
 
@@ -85,6 +86,7 @@ wc <-stack(wc)
 plot(wc[[2]])
 writeRaster(wc,"wc_vif.grd", format = "raster", overwrite=TRUE)
 
-setwd("./GDM") #volta diretorio
+setwd("../../..") #volta diretorio
+setwd("./GDM")
 getwd()
 
