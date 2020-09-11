@@ -5,14 +5,15 @@ pacman::p_load(gdm, raster, maptools, rgdal, psych, plyr, devtools)
 tif <- list.files("./Data/Abiotic/" , patt = ".tif")
 tif
 pres <- grep("30s", tif, value = T)
-setwd("GDM/Data/Abiotic/")#tem q estar dentro da pasta abiotic
-getwd()
+setwd("./Data/Abiotic/")#tem q estar dentro da pasta abiotic
+
 var_env <-stack(pres)
 plot(var_env[[1]])
-setwd("../../../") #volta diretorio
+setwd("./GDM") #volta diretorio
+getwd()
 
 #lendo shape da bacia e cropando o raster das variaveis ambientais para a bacia
-bacia <- readOGR("GDM/Data/Abiotic/munic_BHRD.shp")
+bacia <- readOGR("./Data/Abiotic/munic_BHRD.shp")
 bacia <- spTransform(bacia, CRS("+proj=longlat +datum=WGS84"))
 env_crop <- crop(var_env, bacia)
 plot(env_crop[[1]])
@@ -21,7 +22,7 @@ plot(env[[1]])
 
 # extract values of cells
 env_v <- values(env)
-env_v <- na.omit(env_v)
+env_v <- na.omit(env_v) #omit NAs
 
 
 
@@ -65,12 +66,12 @@ vif
 # BIO18 = Precipitacao do trimestre mais quente
 # BIO19 = Precipitacao do trimestre mais frio
 
-vif
+
 
 #para selecionar as camadas correspondentes dessas variaveis do raster que contem todas as camadas - todas as variaveis e salvar um novo raster q contem so essas camadas que interessam.
 lista <- c(2, 3, 5, 14, 18)
-setwd("GDM/Data/Abiotic/") # de novo tem q estar na pasta abiotic
-getwd()
+setwd("./Data/Abiotic/") # de novo tem q estar na pasta abiotic
+
 for(i in lista){
   writeRaster(env[[i]], ifelse(i < 10, paste0("wc_bio0", i, ".tif"),
                                paste0("wc_bio", i, ".tif")),
@@ -84,5 +85,6 @@ wc <-stack(wc)
 plot(wc[[2]])
 writeRaster(wc,"wc_vif.grd", format = "raster", overwrite=TRUE)
 
-#setwd("../../../")
+setwd("./GDM") #volta diretorio
+getwd()
 
