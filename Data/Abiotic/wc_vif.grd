@@ -1,25 +1,25 @@
 [general]
 creator=R package 'raster'
-created=2020-09-04 00:25:01
+created=2020-09-12 15:04:55
 [georeference]
-nrows=411
-ncols=488
+nrows=82
+ncols=98
 xmin=-43.833333333
-ymin=-21.183333333
-xmax=-39.766666666
-ymax=-17.758333333
+ymin=-21.166666667
+xmax=-39.75
+ymax=-17.75
 projection=+proj=longlat +datum=WGS84 +no_defs
 [data]
 datatype=FLT4S
 byteorder=little
-nbands=5
+nbands=6
 bandorder=BIL
-minvalue=12.4166669845581:7.61666631698608:179:169.234008789062:11.8500003814697
-maxvalue=26.75:22.1666660308838:346:251.442428588867:25.966667175293
+minvalue=14.5813331604004:181:27:8.3953332901001:14.1960010528564:13.9800004959106
+maxvalue=26.6040000915527:341:183:13.0880002975464:20.4720001220703:25.8186664581299
 nodatavalue=-3.4e+38
 [legend]
 legendtype=
 values=
 color=
 [description]
-layername=wc_bio02:wc_bio03:wc_bio05:wc_bio14:wc_bio18
+layername=wcbio_02:wcbio_05:wcbio_09:wcbio_12:wcbio_17:wcbio_18

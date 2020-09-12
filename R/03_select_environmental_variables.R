@@ -1,15 +1,15 @@
 if(!require(pacman)) install.packages("pacman")
 pacman::p_load(gdm, raster, maptools, rgdal, psych, plyr, devtools)
 
-tif <- list.files("GDM/Data/Abiotic/" , patt = ".tif")
+tif <- list.files("./Data/Abiotic/" , patt = ".tif")
 tif
-pres <- grep("30s", tif, value = T)
-setwd("GDM/Data/Abiotic/")
+pres <- grep("2.5m", tif, value = T)
+setwd("./Data/Abiotic/")
 var_env <-stack(pres)
 plot(var_env[[1]])
-setwd("../../../")
+setwd("~/GDM")
 
-bacia <- readOGR("GDM/Data/Abiotic/munic_BHRD.shp")
+bacia <- readOGR("./Data/Abiotic/munic_BHRD.shp")
 bacia <- spTransform(bacia, CRS("+proj=longlat +datum=WGS84"))
 env_crop <- crop(var_env, bacia)
 plot(env_crop[[1]])
@@ -27,14 +27,14 @@ corr <- cor(env_v)
 abs(round(corr, 2)) # funçao abs, transforma em módulo ( tira o negativo)
 ifelse(corr >= 0.7, "sim", "nao")
 ifelse(corr >= 0.7, 1, 0)
-write.table(abs(round(corr, 2)), "GDM/Results/Selected_variables/correlacao/cor_pres.xls", row.names = T, sep = "\t")
-write.table(ifelse(corr >= 0.7, "sim", "nao"), "GDM/Results/Selected_variables/correlacao/cor_pres_afirmacao.xls",
+write.table(abs(round(corr, 2)), "./Results/Selected_variables/correlacao/cor_pres.xls", row.names = T, sep = "\t")
+write.table(ifelse(corr >= 0.7, "sim", "nao"), "./Results/Selected_variables/correlacao/cor_pres_afirmacao.xls",
             row.names = T, sep = "\t")
 
 ##################VIF
 
 
-source("GDM/R/vif_conc.R")
+source("./R/vif_conc.R")
 vif<-vif_func(env_v[,-c(1:2)], thresh=10, trace=T)
 vif
 # significado das bios
@@ -59,19 +59,21 @@ vif
 # BIO19 = Precipitacao do trimestre mais frio
 
 vif
-lista <- c(2, 3, 5, 14, 18)
-setwd("GDM/Data/Abiotic/")
+lista <- c(2, 5, 9, 12, 17, 18)
+setwd("./Data/Abiotic/")
 
 for(i in lista){
-  writeRaster(env[[i]], ifelse(i < 10, paste0("wc_bio0", i, ".tif"),
-                               paste0("wc_bio", i, ".tif")),
+  writeRaster(env[[i]], ifelse(i < 10, paste0("wcbio_0", i, ".tif"),
+                               paste0("wcbio_", i, ".tif")),
               format = "GTiff", overwrite=TRUE)}
 
-tif <- list.files("GDM/Data/Abiotic/" , patt = ".tif")
-wc <- grep("wc_bio", tif, value = T)
-setwd("GDM/Data/Abiotic/")
+setwd("~/GDM")
+
+tif <- list.files("./Data/Abiotic/" , patt = ".tif")
+wc <- grep("wcbio_", tif, value = T)
+setwd("./Data/Abiotic/")
 wc <-stack(wc)
 plot(wc[[2]])
 writeRaster(wc,"wc_vif.grd", format = "raster", overwrite=TRUE)
-setwd("../../../")
+setwd("../../")
 

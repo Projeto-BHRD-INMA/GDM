@@ -2,8 +2,8 @@ if(!require(pacman)) install.packages("pacman")
 pacman::p_load(gdm, raster, maptools, rgdal, psych, plyr, devtools)
 
 
-newdata<-read.csv2("GDM/Data/Biotic/species.csv", h=T, sep= ";", dec=",")
-wc <-stack("GDM/Data/Abiotic/wc_vif.grd")
+newdata<-read.csv2("./Data/Biotic/species.csv", h=T, sep= ";", dec=",")
+wc <-stack("./Data/Abiotic/wc_vif.grd")
 
 newdata-> gdmExpData
 envTab <- gdmExpData[, c(5:ncol(gdmExpData))]
@@ -14,11 +14,11 @@ gdmTab.rast <- formatsitepair(sppTab, bioFormat=2, XColumn="lon",               
 gdmTab.rast<-na.omit(gdmTab.rast)
 gdm.1 <- gdm(gdmTab.rast, geo=T)
 
-
+str(gdm.1)
 ## get idea of number of panels
 length(gdm.1$predictors)
 
-png(filename="GDM/Results/GDM.png")
+png(filename="./Results/GDM.png")
 plot(gdm.1, plot.layout=c(3,3))
 dev.off()
 
@@ -28,7 +28,7 @@ summary(gdm.1)
 #The maximum height reached by each function provides an indication of the total amount of compositional turnover associated with that variable, holding all other variables constant.
 #The slope of each function provides an indication of the rate of compositional turnover and how this rate varies along the gradient.
 
-png(filename="GDM/Results/plotUncertainty.png")
+png(filename="./Results/plotUncertainty.png")
 plotUncertainty(gdmTab.rast,  sampleSites=0.7, bsIters=5,
                 geo=T, spline=NULL,
                 knots=NULL, splineCol="blue", errCol="grey80",
@@ -40,7 +40,7 @@ dev.off()
 envRast<-wc
 rastTrans <- gdm.transform(gdm.1, envRast)
 
-png(filename="GDM/Results/env_variables.png")
+png(filename="./Results/env_variables.png")
 plot(rastTrans, plot.layout=c(3,3))
 dev.off()
 
@@ -60,7 +60,7 @@ pcaRast[[3]] <- (pcaRast[[3]]-pcaRast[[3]]@data@min) /
 
 ###mesmo gráfico com outro padrão de cor
 #é tudo o mesmo resultado, só muda aparência (combinação de cores). Escolher qual fica melhor de interpretar
-png(filename="GDM/Results/plotRGB.png")
+png(filename="./Results/plotRGB.png")
 par(mfrow=c(3,2))
 plotRGB(pcaRast, r=2, g=3, b=1,stretch='hist')
 plotRGB(pcaRast, r=2, g=1, b=3,stretch='hist')
@@ -70,11 +70,11 @@ plotRGB(pcaRast, r=1, g=2, b=3,stretch='hist')
 plotRGB(pcaRast, r=1, g=3, b=2,stretch='hist')
 dev.off()
 
-png(filename="GDM/Results/plotRGB123.png")
+png(filename="./Results/plotRGB123.png")
 plotRGB(pcaRast, r=1, g=2, b=3, stretch='hist', axes=T, main="RGB123", colNA="gray", bgalpha=100)
 dev.off()
 
-png(filename="GDM/Results/plotRGB231.png")
+png(filename="./Results/plotRGB231.png")
 plotRGB(pcaRast, r=2, g=3, b=1,stretch='hist', axes=T, main="RGB231", colNA="gray", bgalpha=100)
 dev.off()
 
