@@ -32,7 +32,7 @@ png(filename="./Results/plotUncertainty.png")
 plotUncertainty(gdmTab.rast,  sampleSites=0.7, bsIters=5,
                 geo=T, spline=NULL,
                 knots=NULL, splineCol="blue", errCol="grey80",
-                plot.linewidth=2.0, plot.layout=c(3,2))
+                plot.linewidth=2.0, plot.layout=c(3,3))
 dev.off()
 
 
